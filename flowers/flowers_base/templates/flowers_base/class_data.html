@@ -14,7 +14,7 @@
         {% for data in  class_data %}
                 <tbody>
                     <tr>
-                        <td>{{ data.class_id }}</td>
+                        <td><a href="{% url 'flowers_base:class_flower' class_id=data.class_id %} ">{{ data.class_id }}</a></td>
                         <td> {{ data.class_name }}</td>
                     </tr>
                 </tbody>

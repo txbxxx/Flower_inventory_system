@@ -1,0 +1,8 @@
+{% extends 'flowers_base/base.html' %}
+
+{% block content %}
+    <form action="{% url 'flowers_base:delete_flower' flower.flower_id %}">
+        {% csrf_token %}
+        <button name="submit"></button>
+    </form>
+{% endblock content %}

@@ -1,0 +1,11 @@
+{% extends 'flowers_base/base.html' %}
+
+{% block content %}
+    <form action="{% url 'flowers_base:edit_flower' flower.flower_id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">修改信息</button>
+        {# 我直接将删除和编辑做在一起了 #}
+        <button name="submit"><a href="{% url 'flowers_base:delete_flower' flower.flower_id %}">删除此条数据</a></button>
+    </form>
+{% endblock content %}

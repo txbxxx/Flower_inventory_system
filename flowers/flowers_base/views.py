@@ -42,6 +42,7 @@ def add_flower(request):
     return render(request, 'flowers_base/add_flower.html', context)
 
 
+# 添加鲜花类视图
 def add_flowerclass(request):
     if request.method != 'POST':  # 如果不是POST请求就创建一个空表单，请求一般是get请求
         form = FlowerClassForm()
@@ -54,6 +55,7 @@ def add_flowerclass(request):
     return render(request, 'flowers_base/add_flowerclass.html', context)
 
 
+## 添加管理员视图
 def add_admin(request):
     if request.method != 'POST':
         form = adminForm()
@@ -64,3 +66,32 @@ def add_admin(request):
             return redirect('flowers_base:admin_data')
     context = {'form': form}
     return render(request, 'flowers_base/add_admin.html', context)
+
+
+def edit_flower(request, flower_id):
+    flower = flower_data.objects.get(flower_id=flower_id)
+    clas = flower.classi
+    if request.method != 'POST':
+        form = FlowersForm(instance=flower)
+    else:
+        form = FlowersForm(instance=flower, data=request.POST)
+        if form.is_valid():
+            form.save()
+            redirect('flowers_base:flower_class')
+    context = {'form': form, "clas": clas, "flower": flower}
+    return render(request, 'flowers_base/edit_flower.html', context)
+
+
+# 删除鲜花视图
+def delete_flower(request, flower_id):
+    flower_id = flower_data.objects.get(flower_id=flower_id)
+    flower_id.delete()
+    return redirect('flowers_base:flower_data')
+    # return render(request, 'flowers_base/delete_flowers.html')
+
+
+def class_flower(request, class_id):
+    print(class_id)
+    flower = flower_data.objects.filter(classi=class_id)
+    context = {'flower': flower}
+    return render(request, 'flowers_base/class_flower_list.html', context)

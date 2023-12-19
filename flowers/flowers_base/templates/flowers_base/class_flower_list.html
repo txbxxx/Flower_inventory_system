@@ -12,13 +12,13 @@
                         <th>单价</th>
                     </tr>
                 </thead>
-        {% for data in  flowers %}
+        {% for data in  flower %}
                 <tbody>
                     <tr>
                         <td>{{ data.flower_id }}</td>
                         {# 由于我这里遍历的变量是data，所以就是  data.flower_id#}
                         <td><a href="{% url 'flowers_base:edit_flower' data.flower_id %}">{{ data.flower_name }}</a></td>
-                        <td><a href="{% url 'flowers_base:class_flower' class_id=data.classi.class_id %}">{{ data.classi.class_id }}</a></td>
+                        <td>{{ data.classi.class_id }}</td>
                         <td>{{ data.num }}</td>
                         <td>{{ data.price }}</td>
                     </tr>
