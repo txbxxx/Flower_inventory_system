@@ -1,0 +1,27 @@
+{% extends 'flowers_base/base.html' %}
+{%  block content %}
+    <div class="admin_table">
+        <p>Admin_data</p>
+        <table border="1">
+                 <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名字</th>
+                        <th>电话</th>
+                    </tr>
+                </thead>
+        {% for data in  admin_data %}
+                <tbody>
+                    <tr>
+                        <td>{{ data.admin_id }}</td>
+                        <td> {{ data.admin_name }}</td>
+                        <td>{{ data.telephone }}</td>
+                    </tr>
+                </tbody>
+        {% empty %}
+            <li>没有管理员数据</li>
+        {%  endfor %}
+        </table>
+        <a href="{% url 'flowers_base:add_admin' %}">添加管理员信息</a>
+    </div>
+{% endblock content %}

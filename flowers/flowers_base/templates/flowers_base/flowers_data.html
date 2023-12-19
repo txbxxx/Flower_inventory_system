@@ -1,0 +1,31 @@
+{% extends 'flowers_base/base.html' %}
+{%  block content %}
+    <div class="flower_table">
+        <p>Flower_data</p>
+        <table border="1">
+                 <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名字</th>
+                        <th>类别号</th>
+                        <th>库存</th>
+                        <th>单价</th>
+                    </tr>
+                </thead>
+        {% for data in  flowers %}
+                <tbody>
+                    <tr>
+                        <td>{{ data.flower_id }}</td>
+                        <td> {{ data.flower_name }}</td>
+                        <td>{{ data.classi.class_id }}</td>
+                        <td>{{ data.num }}</td>
+                        <td>{{ data.price }}</td>
+                    </tr>
+                </tbody>
+        {% empty %}
+            <li>没有鲜花数据</li>
+        {%  endfor %}
+        </table>
+        <a href="{% url 'flowers_base:add_flower' %}">添加鲜花</a>
+    </div>
+{% endblock content %}

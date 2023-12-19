@@ -1,3 +1,4 @@
+{#主模板#}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,10 +6,18 @@
     <title>base</title>
 </head>
 <body>
+<div class="nav">
+    <div class="nav_option">
     <p>
+        {# 在主页中显示的几个选项，点击可以跳转到相应界面  #}
         <a href="{% url 'flowers_base:index' %}">flower_base</a>
+        <a href="{% url 'flowers_base:flower_data' %}">flowers_data</a>
+        <a href="{% url 'flowers_base:flower_class' %}">flowers_class</a>
+        <a href="{% url 'flowers_base:admin_data' %}">admin_data</a>
     </p>
+    </div>
     {% block content %}
     {% endblock content %}
+</div>
 </body>
 </html>
