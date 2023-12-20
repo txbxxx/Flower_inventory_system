@@ -20,5 +20,6 @@ from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     #flowers_base项目中的路由
-    path('',include('flowers_base.urls'))
+    path('',include('flowers_base.urls')),
+    path('flowers_transcaction',include('flowers_transcaction.urls'))
 ]

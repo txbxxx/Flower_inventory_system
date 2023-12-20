@@ -67,7 +67,7 @@ def add_admin(request):
     context = {'form': form}
     return render(request, 'flowers_base/add_admin.html', context)
 
-
+#修改
 def edit_flower(request, flower_id):
     flower = flower_data.objects.get(flower_id=flower_id)
     clas = flower.classi

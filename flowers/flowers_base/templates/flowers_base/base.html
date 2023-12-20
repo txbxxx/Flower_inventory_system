@@ -2,19 +2,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>base</title>
+    <link rel="stylesheet" href="{% static 'flower_base/css/index_nav.css' %}">
 </head>
 <body>
 <div class="nav">
     <div class="nav_option">
-    <p>
+    <ul>
         {# 在主页中显示的几个选项，点击可以跳转到相应界面  #}
-        <a href="{% url 'flowers_base:index' %}">flower_base</a>
-        <a href="{% url 'flowers_base:flower_data' %}">flowers_data</a>
-        <a href="{% url 'flowers_base:flower_class' %}">flowers_class</a>
-        <a href="{% url 'flowers_base:admin_data' %}">admin_data</a>
-    </p>
+        <li><a href="{% url 'flowers_base:index' %}">flower_base</a></li>
+        <li><a href="{% url 'flowers_base:flower_data' %}">flowers_data</a> </li>
+        <li><a href="{% url 'flowers_base:flower_class' %}">flowers_class</a></li>
+        <li><a href="{% url 'flowers_base:admin_data' %}">admin_data</a></li>
+    </ul>
     </div>
     {% block content %}
     {% endblock content %}

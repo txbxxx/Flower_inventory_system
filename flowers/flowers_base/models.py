@@ -16,8 +16,8 @@ class flower_data(models.Model):
     flower_id = models.IntegerField(primary_key=True, unique=True)
     flower_name = models.CharField(max_length=20, unique=True)
     # 设置外键指向flower_class，如果flower_class删除关于这个类别的所有鲜花也都删除
-    classi = models.ForeignKey(flower_class, on_delete=models.CASCADE)
-    price = models.DecimalField(null=True, max_digits=10, decimal_places=3)
+    classi = models.ForeignKey(flower_class,to_field="class_id", on_delete=models.CASCADE)
+    price = models.DecimalField(null=True, max_digits=15, decimal_places=2)
     num = models.IntegerField()
 
 

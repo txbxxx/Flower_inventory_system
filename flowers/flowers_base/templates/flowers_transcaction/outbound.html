@@ -1,0 +1,10 @@
+{% extends 'flowers_base/base.html' %}
+
+
+{% block content %}
+    <form action="{% url 'flowers_transcaction:outbound' flower.flower_id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">出库</button>
+    </form>
+{% endblock %}

@@ -2,7 +2,7 @@
 {%  block content %}
     <div class="flower_table">
         <p>Flower_data</p>
-        <table border="1">
+        <table border="0">
                  <thead>
                     <tr>
                         <th>编号</th>
@@ -21,6 +21,8 @@
                         <td><a href="{% url 'flowers_base:class_flower' class_id=data.classi.class_id %}">{{ data.classi.class_id }}</a></td>
                         <td>{{ data.num }}</td>
                         <td>{{ data.price }}</td>
+                        <td><a href="{% url 'flowers_transcaction:inbound' flower_id=data.flower_id %}">入库</a></td>
+                        <td><a href="{% url 'flowers_transcaction:outbound' flower_id=data.flower_id %}">出库</a></td>
                     </tr>
                 </tbody>
         {% empty %}
@@ -28,5 +30,6 @@
         {%  endfor %}
         </table>
         <a href="{% url 'flowers_base:add_flower' %}">添加鲜花</a>
+
     </div>
 {% endblock content %}
