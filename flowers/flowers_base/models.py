@@ -8,6 +8,9 @@ class flower_class(models.Model):
     # 定义类别号、类别名称
     class_id = models.IntegerField(primary_key=True, unique=True)
     class_name = models.CharField(max_length=30, unique=True)
+    #显示类别名字
+    def __str__(self):
+        return self.class_name
 
 
 # 定义鲜花模型
@@ -20,6 +23,10 @@ class flower_data(models.Model):
     price = models.DecimalField(null=True, max_digits=15, decimal_places=2)
     num = models.IntegerField()
 
+    #显示flower的名字
+    def __str__(self):
+        return self.flower_name
+
 
 # 管理员模型
 class admin_data(models.Model):
@@ -27,3 +34,6 @@ class admin_data(models.Model):
     admin_id = models.IntegerField(primary_key=True, unique=True)
     admin_name = models.CharField(max_length=30)
     telephone = models.CharField(max_length=30, null=True)
+    #显示管理员的名字
+    def __str__(self):
+        return self.admin_name

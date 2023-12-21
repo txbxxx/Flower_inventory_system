@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from .models import flower_data, flower_class, admin_data
-from .form import FlowersForm, FlowerClassForm, adminForm
+from .form import FlowersForm, FlowerClassForm, adminForm, SearchForm
 
 
 # Create your views here.
@@ -95,3 +96,13 @@ def class_flower(request, class_id):
     flower = flower_data.objects.filter(classi=class_id)
     context = {'flower': flower}
     return render(request, 'flowers_base/class_flower_list.html', context)
+
+
+#搜索
+def search_flower(request):
+    form = request.GET.get("select")
+    search = flower_data.objects.filter(flower_name__icontains=form)
+    context = {'form': form, 'search': search}
+    return render(request,'flowers_base/search.html',context)
+
+

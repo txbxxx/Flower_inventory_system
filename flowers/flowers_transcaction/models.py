@@ -13,6 +13,9 @@ class outbound(models.Model):
     outbound_date = models.DateTimeField(auto_now_add=True)
     admin = models.ForeignKey(admin_data, on_delete=models.SET_NULL, null=True)
 
+    def __str__(self):
+        return self.outbound_id
+
 
 # 入库
 class inbound(models.Model):
@@ -22,3 +25,6 @@ class inbound(models.Model):
     inbound_date = models.DateTimeField(auto_now_add=True)
     # 删除对应管理员后字段设置为NULL
     admin = models.ForeignKey(admin_data, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.inbound_id

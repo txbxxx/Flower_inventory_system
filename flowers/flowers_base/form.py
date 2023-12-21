@@ -29,3 +29,7 @@ class adminForm(forms.ModelForm):
     class Meta:
         model = admin_data
         fields = '__all__'
+
+
+class SearchForm(forms.Form):
+    query=forms.CharField()

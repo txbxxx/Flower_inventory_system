@@ -16,6 +16,12 @@
         <li><a href="{% url 'flowers_base:flower_data' %}">flowers_data</a> </li>
         <li><a href="{% url 'flowers_base:flower_class' %}">flowers_class</a></li>
         <li><a href="{% url 'flowers_base:admin_data' %}">admin_data</a></li>
+        <li>
+            <form action="{% url 'flowers_base:search_flower' %}" method="get">
+            <input type="text" name="select" placeholder="search">
+            <button type="submit">搜索</button>
+            </form>
+        </li>
     </ul>
     </div>
     {% block content %}

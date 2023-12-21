@@ -13,8 +13,8 @@ def inbound(request, flower_id):
     flower = flower_data.objects.get(flower_id=flower_id)
     init_data = {'flowers': flower.flower_name}     #初始化数据，点击哪个花就默认显示哪个花
     if request.method != 'POST': #判断如果不是POST提交请求，则是GET获取请求
+        form = InBoundForm(initial=init_data)  # 就创建一个Form表单并给与初始化值
         form.fields['flowers'].queryset = flower_data.objects.filter(flower_id=flower_id) #限制只允许选择当前花
-        form = InBoundForm(initial=init_data) #就创建一个Form表单并给与初始化值
     else:
         form = InBoundForm(data=request.POST) #提交请求，提交写入的数据
         if form.is_valid():

@@ -24,5 +24,6 @@ urlpatterns = [
     path('add_admin', views.add_admin, name="add_admin"),  # 添加Flower class的form表单路由
     path('edit_flower/<int:flower_id>/', views.edit_flower, name="edit_flower"), # 编辑花的信息的路由
     path('delete_flower/<int:flower_id>/', views.delete_flower, name="delete_flower"), # 删除花的信息
-    path('class_flower/<int:class_id>/', views.class_flower, name="class_flower"),
+    path('class_flower/<int:class_id>/', views.class_flower, name="class_flower"), #花的类别
+    path('search/', views.search_flower, name="search_flower"),
 ]
