@@ -1,7 +1,7 @@
 {% extends 'flowers_base/base.html' %}
 
 {% block content %}
-<div class="admin_table">
+<div class="class_table">
         <p>Flower Class data</p>
         <table border="1">
                  <thead>
@@ -22,6 +22,8 @@
             <li>没有管理员数据</li>
         {%  endfor %}
         </table>
-        <a href="{% url 'flowers_base:add_flowerclass' %}">添加鲜花类别</a>
+        <div class="add_class">
+            <a href="{% url 'flowers_base:add_flowerclass' %}">添加鲜花类别</a>
+        </div>
     </div>
 {% endblock %}

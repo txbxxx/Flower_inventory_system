@@ -2,9 +2,11 @@
 
 
 {% block content %}
+    <div class="outbound_data">
     <form action="{% url 'flowers_transcaction:outbound' flower.flower_id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button name="submit">出库</button>
     </form>
+    </div>
 {% endblock %}

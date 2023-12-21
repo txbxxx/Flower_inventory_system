@@ -1,10 +1,14 @@
 {% if search %}
-    <h3>搜索{{ form }}</h3>
-    <ul>
-        {% for data in search %}
-            <li><a href="{% url 'flowers_base:edit_flower' data.flower_id %}">{{ data.flower_name }}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="search">
+        <h3>搜索{{ form }}</h3>
+        <ul>
+            {% for data in search %}
+                <li><a href="{% url 'flowers_base:edit_flower' data.flower_id %}">{{ data.flower_name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 {% else %}
-    <p>未搜索到</p>
+    <div class="search">
+        <p>未搜索到</p>
+    </div>
 {% endif %}

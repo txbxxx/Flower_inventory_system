@@ -18,12 +18,13 @@ def flowers_data(request):
     return render(request, 'flowers_base/flowers_data.html', context)
 
 
+#flower类别视图
 def flowerClass(request):
     class_data = flower_class.objects.order_by('class_id')
     context = {'class_data': class_data}
     return render(request, 'flowers_base/class_data.html', context)
 
-
+#管理员用户视图
 def adminData(request):
     admindata = admin_data.objects.order_by('admin_id')
     context = {'admin_data': admindata}
@@ -90,18 +91,19 @@ def delete_flower(request, flower_id):
     return redirect('flowers_base:flower_data')
     # return render(request, 'flowers_base/delete_flowers.html')
 
-
+#在flower_class界面中点击花的类别名就可以查看花的分类
 def class_flower(request, class_id):
-    print(class_id)
     flower = flower_data.objects.filter(classi=class_id)
     context = {'flower': flower}
     return render(request, 'flowers_base/class_flower_list.html', context)
 
 
-#搜索
+#搜索视图用法
 def search_flower(request):
+    #获取值，这个值是input输入的内容，其中select是input输入框的name
     form = request.GET.get("select")
-    search = flower_data.objects.filter(flower_name__icontains=form)
+    #Q是表示可以使用or and这些来搜索
+    search = flower_data.objects.filter(Q(flower_name__icontains=form) | Q(flower_id__icontains=form) |Q(classi__class_name__icontains=form))
     context = {'form': form, 'search': search}
     return render(request,'flowers_base/search.html',context)
 

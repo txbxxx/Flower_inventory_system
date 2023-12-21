@@ -2,7 +2,7 @@
 {%  block content %}
     <div class="flower_table">
         <p>Flower_data</p>
-        <table border="0">
+        <table class="flower_data_tables" border="0">
                  <thead>
                     <tr>
                         <th>编号</th>
@@ -29,7 +29,8 @@
             <li>没有鲜花数据</li>
         {%  endfor %}
         </table>
-        <a href="{% url 'flowers_base:add_flower' %}">添加鲜花</a>
-
+        <div class="add_flowers">
+            <a href="{% url 'flowers_base:add_flower' %}">添加鲜花</a>
+        </div>
     </div>
 {% endblock content %}

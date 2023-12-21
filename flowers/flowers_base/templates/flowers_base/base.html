@@ -1,31 +1,52 @@
 {#主模板#}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     {% load static %}
     <meta charset="UTF-8">
     <title>base</title>
-    <link rel="stylesheet" href="{% static 'flower_base/css/index_nav.css' %}">
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+{#    <link rel="stylesheet" href="{% static 'flower_base\css\index_nav.css' %}">#}
 </head>
 <body>
-<div class="nav">
-    <div class="nav_option">
-    <ul>
-        {# 在主页中显示的几个选项，点击可以跳转到相应界面  #}
-        <li><a href="{% url 'flowers_base:index' %}">flower_base</a></li>
-        <li><a href="{% url 'flowers_base:flower_data' %}">flowers_data</a> </li>
-        <li><a href="{% url 'flowers_base:flower_class' %}">flowers_class</a></li>
-        <li><a href="{% url 'flowers_base:admin_data' %}">admin_data</a></li>
-        <li>
-            <form action="{% url 'flowers_base:search_flower' %}" method="get">
-            <input type="text" name="select" placeholder="search">
-            <button type="submit">搜索</button>
-            </form>
-        </li>
-    </ul>
+{#导航栏设置#}
+<nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">导航栏</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class=" nav nav-pills">
+                {# 在主页中显示的几个选项，点击可以跳转到相应界面  #}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" aria-current="page" href="{% url 'flowers_base:index' %}">flower base</a>#}
+{#                </li>#}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'flowers_base:flower_data' %}">Flowers Data</a> </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'flowers_base:flower_class' %}">Flowers Class</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'flowers_base:admin_data' %}">Admin Data</a>
+                </li>
+            </ul>
+            <div class="row mx-auto">
+                <form class="d-flex" role="search" action="{% url 'flowers_base:search_flower' %}" method="get">
+                    <div class="mx-auto">
+                        <input class="form-control me-2 form-control-sm" aria-label="Search" type="text" name="select" placeholder="search">
+                    </div>
+                    <button class="btn btn-outline-success btn-sm mx-2" type="submit">搜索</button>
+                </form>
+            </div>
+        </div>
     </div>
-    {% block content %}
-    {% endblock content %}
-</div>
+</nav>
+    <div>
+        {% block content %}
+        {% endblock content %}
+    </div>
 </body>
 </html>

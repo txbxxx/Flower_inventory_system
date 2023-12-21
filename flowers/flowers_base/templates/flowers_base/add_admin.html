@@ -1,10 +1,12 @@
 {% extends 'flowers_base/base.html' %}
 
 {% block content %}
+    <div class="add_admin_data">
     <p>添加管理员</p>
     <form action="{% url 'flowers_base:add_admin' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button name="submit">添加</button>
     </form>
+    </div>
 {% endblock content %}
