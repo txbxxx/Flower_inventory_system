@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect,reverse
 from django.http import HttpResponseRedirect
 from .form import InBoundForm, OutBoundForm
+from .models import inbound,outbound
 from flowers_base.models import flower_data
 
 
@@ -8,7 +9,7 @@ from flowers_base.models import flower_data
 
 # （可用了）此处有问题，在点击入库表单无反应
 #入库视图操作
-def inbound(request, flower_id):
+def inbound_list(request, flower_id):
     # 获取flower对象，依靠传入的flower_id
     flower = flower_data.objects.get(flower_id=flower_id)
     init_data = {'flowers': flower.flower_name}     #初始化数据，点击哪个花就默认显示哪个花
@@ -28,7 +29,7 @@ def inbound(request, flower_id):
 
 
 # 出库视图操作操作同入库视图
-def outbound(request, flower_id):
+def outbound_list(request, flower_id):
     flower = flower_data.objects.get(flower_id=flower_id)
     init_data = {'flowers': flower.flower_name}
     if request.method != 'POST':
@@ -44,3 +45,24 @@ def outbound(request, flower_id):
             return HttpResponseRedirect(reverse('flowers_base:flower_data'))
     context = {'form': form, "flower": flower}
     return render(request, 'flowers_transcaction/outbound.html', context)
+
+
+
+#对应管理员的出库表清单
+def admin_out_list(request, admin_id):
+    out = outbound.objects.filter(admin_id=admin_id)
+    admin_name = None   #首先将管理员的名字设置为None调用到html中使用if判断
+    ##如果outbount内有数据就执行
+    if out.exists():
+        admin_name = out[0].admin.admin_name  # 获取管理员的名字
+    context = {'out': out, 'admin_name': admin_name}
+    return render(request, 'flowers_transcaction/admin_oprate_list.html', context)
+
+def admin_in_list(request, admin_id):
+    ino = inbound.objects.filter(admin_id=admin_id)
+    admin_name = None   #首先将管理员的名字设置为None调用到html中使用if判断
+    ##如果outbount内有数据就执行
+    if ino.exists():
+        admin_name = ino[0].admin.admin_name  # 获取管理员的名字
+    context = {'ino': out, 'admin_name': admin_name}
+    return render(request, 'flowers_transcaction/admin_oprate_list.html', context)

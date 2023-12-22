@@ -1,12 +1,17 @@
 {% extends 'flowers_base/base.html' %}
-
+{% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="inbound_data">
+<div class="container">
+    <div class="text-center mt-5 mb-5">
+        <h3 class="text-center">{{ flower.flower_name }}入库</h3>
+    </div>
+    <div>
     <form action="{% url 'flowers_transcaction:inbound' flower.flower_id %}" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button name="submit">入库</button>
+        {{ form|crispy }}
+        <button class="btn btn-light" name="submit">入库</button>
     </form>
     </div>
+</div>
 {% endblock %}

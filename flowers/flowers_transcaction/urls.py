@@ -14,6 +14,7 @@ from . import views
 app_name = 'flowers_transcaction'
 
 urlpatterns = [
-    path('inbound/<int:flower_id>', views.inbound, name='inbound'),
-    path('outbound/<int:flower_id>', views.outbound, name='outbound')
+    path('inbound/<int:flower_id>', views.inbound_list, name='inbound'),
+    path('outbound/<int:flower_id>', views.outbound_list, name='outbound'),
+    path('outbound_list/<int:admin_id>',views.admin_out_list, name='admin_out_list'),
 ]

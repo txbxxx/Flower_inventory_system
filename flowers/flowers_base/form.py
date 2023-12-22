@@ -19,6 +19,7 @@ class FlowersForm(forms.ModelForm):
         fields = '__all__'
 
 
+
 class FlowerClassForm(forms.ModelForm):
     class Meta:
         model = flower_class

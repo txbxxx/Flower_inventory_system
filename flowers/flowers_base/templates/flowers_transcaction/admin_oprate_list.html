@@ -1,0 +1,83 @@
+{% extends 'flowers_base/base.html' %}
+{%  block content %}
+<div class="container">
+    <div class="flower_table">
+        <div class="text-center mt-5 mb-5">
+            <h3 class="text-center">
+                {% if admin_name %}
+                    {{ admin_name }}管理员的鲜花出库记录
+                {% else %}
+                    未添加管理员的鲜花出库记录
+                {% endif %}
+            </h3>
+        </div>
+        <table class="table table-borderless text-center table-hover" border="1">
+                 <thead>
+                    <tr>
+                        <th scope="col">出库号</th>
+                        <th scope="col">出库数量</th>
+                        <th scope="col">出库时间</th>
+                        <th scope="col">操作员</th>
+                        <th scope="col">花名</th>
+                    </tr>
+                </thead>
+        {% for data in  out %}
+                <tbody>
+                    <tr>
+                        <td scope="row"> {{ data.outbound_id }}</td>
+                        {# 由于我这里遍历的变量是data，所以就是  data.flower_id#}
+                        <td>
+                            {{ data.outbound_num}}
+                        </td>
+                        <td>{{ data.outbound_date }}</td>
+                        <td>{{ data.admin_id }}</td>
+                        <td>{{ data.flowers_id }}</td>
+                    </tr>
+                </tbody>
+        {% empty %}
+            <li>没有鲜花数据</li>
+        {%  endfor %}
+        </table>
+{#        <div class="add_flowrs_for_class"><a href="{% url 'flowers_base:add_flower' %}">添加鲜花</a></div>#}
+    </div>
+    <div class="flower_table">
+        <div class="text-center mt-5 mb-5">
+            <h3 class="text-center">
+                {% if admin_name %}
+                    {{ admin_name }}管理员的鲜花入库记录
+                {% else %}
+                    未添加管理员的鲜花出库记录
+                {% endif %}
+            </h3>
+        </div>
+        <table class="table table-borderless text-center table-hover" border="1">
+                 <thead>
+                    <tr>
+                        <th scope="col">入库号</th>
+                        <th scope="col">入库数量</th>
+                        <th scope="col">入库时间</th>
+                        <th scope="col">操作员</th>
+                        <th scope="col">花名</th>
+                    </tr>
+                </thead>
+        {% for data in  ino %}
+                <tbody>
+                    <tr>
+                        <td scope="row"> {{ data.inbound_id }}</td>
+                        {# 由于我这里遍历的变量是data，所以就是  data.flower_id#}
+                        <td>
+                            {{ data.inbound_num}}
+                        </td>
+                        <td>{{ data.inbound_date }}</td>
+                        <td>{{ data.admin_id }}</td>
+                        <td>{{ data.flowers_id }}</td>
+                    </tr>
+                </tbody>
+        {% empty %}
+            <li>没有鲜花数据</li>
+        {%  endfor %}
+        </table>
+{#        <div class="add_flowrs_for_class"><a href="{% url 'flowers_base:add_flower' %}">添加鲜花</a></div>#}
+    </div>
+</div>
+{% endblock content %}

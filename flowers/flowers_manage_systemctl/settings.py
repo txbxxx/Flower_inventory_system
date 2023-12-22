@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     "flowers_base",
     "flowers_transcaction",
     #"""第三方程序"""
+    "crispy_forms",
     "django_bootstrap5",
+    "crispy_bootstrap5",
     #"""默认程序"""
     'django.contrib.admin',
     'django.contrib.auth',
@@ -144,6 +146,11 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#pip inistall django-crispy-forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 BOOTSTRAP3 = {
     'include_jquery': True,

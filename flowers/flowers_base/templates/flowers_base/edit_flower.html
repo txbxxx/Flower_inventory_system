@@ -1,13 +1,23 @@
 {% extends 'flowers_base/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-    <div class="edit_flower">
-        <form action="{% url 'flowers_base:edit_flower' flower.flower_id %}" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button name="submit">修改信息</button>
-            {# 我直接将删除和编辑做在一起了 #}
-            <button name="submit"><a href="{% url 'flowers_base:delete_flower' flower.flower_id %}">删除此条数据</a></button>
-        </form>
+    <div class="container">
+        <div class="text-center mt-5 mb-5">
+            <h3 class="text-center">修改鲜花{{ flower.flower_name }}信息</h3>
+        </div>
+        <div class="edit_flower_form">
+            <form  class="form-horizontal" action="{% url 'flowers_base:edit_flower' flower.flower_id %}" method="post">
+                {% csrf_token %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+                {% endfor %}
+                {{ form|crispy }}
+                <button class="btn btn-light" name="submit">修改信息</button>
+                {# 我直接将删除和编辑做在一起了 #}
+                <button class="btn btn-light" name="submit">
+                    <a class="edit_a" href="{% url 'flowers_base:delete_flower' flower.flower_id %}">删除此条数据</a>
+                </button>
+            </form>
+        </div>
     </div>
 {% endblock content %}

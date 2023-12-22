@@ -1,0 +1,20 @@
+.nav-link {
+    color: black;
+}
+
+.nav-pills nav-item {
+    background-color: dodgerblue;
+}
+
+/*所有a标签*/
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/*修改的表单*/
+.edit_flower_form{
+    text-align: center;
+}
+
+
