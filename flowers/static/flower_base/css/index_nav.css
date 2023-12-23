@@ -101,6 +101,26 @@ a {
 }
 
 
+.admin_bound_data .inbount-btn,.inbount-btn:hover{
+    color: white;
+}
+.admin_bound_data .btn{
+    background-color: #363333;
 
+}
+
+/*=======================================calss_data.html=======================================================*/
+
+
+.class_flower_data_list .inbount-btn,.inbount-btn:hover{
+    color: white;
+}
+.class_flower_data_list .btn{
+    background-color: #363333;
+}
+
+/*.class_flower_data_list .delete_class_btn{*/
+/*    width: 101px;*/
+/*}*/
 
 

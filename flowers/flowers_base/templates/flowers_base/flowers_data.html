@@ -56,6 +56,12 @@
                                     <button type="button" class="btn btn-light btn-sm">
                                         <a class="outbount-btn" href="{% url 'flowers_transcaction:outbound' flower_id=data.flower_id %}">出库</a>
                                     </button>
+                                    <button type="button" class="btn btn-light btn-sm">
+                                        <a class="outbount-btn" href="{% url 'flowers_base:delete_flower' data.flower_id %}">删除</a>
+                                    </button>
+                                    <button type="button" class="btn btn-light btn-sm">
+                                        <a class="outbount-btn" href="{% url 'flowers_base:edit_flower' data.flower_id %}">修改</a>
+                                    </button>
                                 </div>
                             </td>
                         </tr>

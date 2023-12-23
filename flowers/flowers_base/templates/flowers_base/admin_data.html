@@ -1,97 +1,112 @@
 {% extends 'flowers_base/base.html' %}
 {%  block content %}
-    <div class="container">
+<div class="container">
         <div class="text-center mt-2 mb-2">
             <h3 class="text-center">管理员列表</h3>
         </div>
-        <div class="row mx-auto">
-            <div class="col-12 d-flex justify-content-end mb-1 add_admin_btn">
-                <div class="add_admin">
-                        <button class="btn btn-light btn-sm">
-                            <a class="add_admin_a" href="{% url 'flowers_base:add_flowerclass' %}">添加管理员信息</a>
-                        </button>
+            <div class="row mx-auto">
+                    <div class="col-12 d-flex justify-content-end mb-1 add_admin_btn">
+                        <div class="add_admin">
+                                <button class="btn btn-light btn-sm">
+                                    <a class="add_admin_a" href="{% url 'flowers_base:add_admin' %}">添加管理员信息</a>
+                                </button>
+                        </div>
+                    </div>
+                <div>
+                    <table class="table text-center table-hover" border="1">
+                         <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>名字</th>
+                                <th>电话</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                    {% for data in  page_obj %}
+                        <tbody >
+                            <tr>
+                                <td>
+                                    <a>{{ data.admin_id }}</a></td>
+                                <td>
+                                    <a href="{% url 'flowers_base:edit_admin' data.admin_id%}">{{ data.admin_name }}</a>
+                                </td>
+                                <td>{{ data.telephone }}</td>
+                                <td class="admin_bound_data">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-light btn-sm">
+                                            <a class="inbount-btn" href="{% url 'flowers_transcaction:admin_bond_list' data.admin_id %}">记录</a>
+                                        </button>
+                                        <button type="button" class="btn btn-light btn-sm delete_class_btn">
+                                            <a class="inbount-btn" href="{% url 'flowers_base:delete_admin' data.admin_id %}">删除</a>
+                                        </button>
+                                        <button type="button" class="btn btn-light btn-sm">
+                                            <a class="outbount-btn" href="{% url 'flowers_base:edit_admin' data.admin_id %}">修改</a>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    {% empty %}
+                        <li>没有管理员数据</li>
+                    {%  endfor %}
+                    </table>
                 </div>
-            </div>
-        <div>
-            <table class="table text-center table-hover" border="1">
-                     <thead>
-                        <tr>
-                            <th>编号</th>
-                            <th>名字</th>
-                            <th>电话</th>
-                        </tr>
-                    </thead>
-            {% for data in  page_obj %}
-                    <tbody >
-                        <tr>
-                            <td>
-                                <a href="{% url 'flowers_transcaction:admin_bond_list' data.admin_id %}">{{ data.admin_id }}</a></td>
-                            <td>
-                                <a href="{% url 'flowers_base:edit_admin' data.admin_id%}">{{ data.admin_name }}</a>
-                            </td>
-                            <td>{{ data.telephone }}</td>
-                        </tr>
-                    </tbody>
-            {% empty %}
-                <li>没有管理员数据</li>
-            {%  endfor %}
-            </table>
-        </div>
 
-        <div class="fenyeqi">
-            <nav class="page-dji" aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="{% url 'flowers_base:admin_data' %}?page=1&key={{ key }}" aria-label="Previous">
-                        <span aria-hidden="true">首页</span>
-                    </a>
-                </li>
-                {% if page_obj.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="{% url 'flowers_base:admin_data' %}?page={{ page_obj.previous_page_number }}&key={{ key }}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                    </li>
-                {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                    </li>
-                {% endif %}
-                {% if page_obj.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="{% url 'flowers_base:admin_data' %}?page={{ page_obj.previous_page_number }}&key={{ key }}">{{ page_obj.previous_page_number }}</a>
-                    </li>
-                {% endif %}
-                <li class="page-item active">
-                    <a class="page-link" href="#">{{ current_page }}</a>
-                </li>
-                {% if page_obj.has_next %}
-                    <li class="page-item">
-                        <a class="page-link" href="{% url 'flowers_base:admin_data' %}?page={{ page_obj.next_page_number }}&key={{ key }}">{{ page_obj.next_page_number }}</a>
-                    </li>
-                {% endif %}
-                {% if page_obj.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="{% url 'flowers_base:admin_data' %}?page={{ page_obj.next_page_number }}&key={{ key }}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-                {% endif %}
-                <li class="page-item">
-                    <a class="page-link" href="{% url 'flowers_base:admin_data' %}?page={{ paginator.num_pages }}&key={{ key }}" aria-label="Next">
-                        <span aria-hidden="true">尾页</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-       </div>
-    </div>
+                <div class="fenyeqi">
+                    <nav class="page-dji" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="{% url 'flowers_base:admin_data' %}?page=1&key={{ key }}" aria-label="Previous">
+                                <span aria-hidden="true">首页</span>
+                            </a>
+                        </li>
+                        {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="{% url 'flowers_base:admin_data' %}?page={{ page_obj.previous_page_number }}&key={{ key }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                            </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                            </li>
+                        {% endif %}
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="{% url 'flowers_base:admin_data' %}?page={{ page_obj.previous_page_number }}&key={{ key }}">{{ page_obj.previous_page_number }}</a>
+                            </li>
+                        {% endif %}
+                        <li class="page-item active">
+                            <a class="page-link" href="#">{{ current_page }}</a>
+                        </li>
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="{% url 'flowers_base:admin_data' %}?page={{ page_obj.next_page_number }}&key={{ key }}">{{ page_obj.next_page_number }}</a>
+                            </li>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="{% url 'flowers_base:admin_data' %}?page={{ page_obj.next_page_number }}&key={{ key }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="page-item">
+                            <a class="page-link" href="{% url 'flowers_base:admin_data' %}?page={{ paginator.num_pages }}&key={{ key }}" aria-label="Next">
+                                <span aria-hidden="true">尾页</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+               </div>
+            </div>
+</div>
 {% endblock content %}

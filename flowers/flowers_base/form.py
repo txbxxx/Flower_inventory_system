@@ -22,7 +22,7 @@ class FlowersForm(forms.ModelForm):
         instance = super(FlowersForm, self).save(commit=False)
         while True:
             new_flower_id = random.randint(10000, 99999)  # 生成一个随机的四位数作为class_id
-            if not flower_data.objects.filter(class_id=new_flower_id).exists():
+            if not flower_data.objects.filter(flower_id=new_flower_id).exists():
                 instance.flower_id = new_flower_id
                 break
         if commit:
@@ -56,7 +56,7 @@ class adminForm(forms.ModelForm):
         while True:
             new_admin_id = random.randint(10000, 99999)  # 生成一个随机的四位数作为class_id
             if not admin_data.objects.filter(admin_id=new_admin_id).exists():
-                instance.class_id = new_admin_id
+                instance.admin_id = new_admin_id
                 break
         if commit:
             instance.save()

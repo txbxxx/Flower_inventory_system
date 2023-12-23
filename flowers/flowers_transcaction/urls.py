@@ -19,4 +19,6 @@ urlpatterns = [
     path('bound_list/<int:admin_id>',views.admin_bond_list, name='admin_bond_list'),
     path('delete_inbound_data/<int:inbound_id>',views.delete_inbound, name='delete_inbound'),
     path('delete_outbound_data/<int:outbound_id>',views.delete_outbound, name='delete_outbound'),
+    path('bound_list/',views.bond_list, name='bound_list'),
+    # path('in_bound_list/',views.in_bond_list, name='in_bound_list'),
 ]

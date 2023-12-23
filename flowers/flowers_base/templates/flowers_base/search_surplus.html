@@ -30,9 +30,21 @@
                             </td>
                             <td>{{ data.num }}</td>
                             <td>{{ data.price }}</td>
-                            <td>
-                                <a href="{% url 'flowers_transcaction:inbound' flower_id=data.flower_id %}">入库</a>
-                                <a href="{% url 'flowers_transcaction:outbound' flower_id=data.flower_id %}">出库</a>
+                            <td class="search_flowers_button_group_in_out">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-light btn-sm" >
+                                        <a class="inbount-btn" href="{% url 'flowers_transcaction:inbound' flower_id=data.flower_id %}">入库</a>
+                                    </button>
+                                    <button type="button" class="btn btn-light btn-sm">
+                                        <a class="outbount-btn" href="{% url 'flowers_transcaction:outbound' flower_id=data.flower_id %}">出库</a>
+                                    </button>
+                                    <button type="button" class="btn btn-light btn-sm">
+                                        <a class="outbount-btn" href="{% url 'flowers_base:delete_flower' data.flower_id %}">删除</a>
+                                    </button>
+                                    <button type="button" class="btn btn-light btn-sm">
+                                        <a class="outbount-btn" href="{% url 'flowers_base:edit_flower' data.flower_id %}">修改</a>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -43,60 +55,58 @@
                 <div class="row">
                     <div class="col-12 d-flex justify-content-start mt-1">
                         <div class="bottom-dfj">
-                <nav class="page-dji" aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="?page=1&key={{ key }}" aria-label="Previous">
-                            <span aria-hidden="true">首页</span>
-                        </a>
-                    </li>
-                    {% if page_obj.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="{% url 'flowers_base:search_surplus' %}?page={{ page_obj.previous_page_number }}&key={{ key }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                        </li>
-                    {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                        </li>
-                    {% endif %}
-                    {% if page_obj.has_previous %}
-                        <li class="page-item">
-                            <a class="page-link" href="{% url 'flowers_base:search_surplus' %}?page={{ page_obj.previous_page_number }}&key={{ key }}">{{ page_obj.previous_page_number }}</a>
-                        </li>
-                    {% endif %}
-                    <li class="page-item active">
-                        <a class="page-link" href="#">{{ current_page }}</a>
-                    </li>
-                    {% if page_obj.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="{% url 'flowers_base:search_surplus' %}?page={{ page_obj.next_page_number }}&key={{ key }}">{{ page_obj.next_page_number }}</a>
-                        </li>
-                    {% endif %}
-                    {% if page_obj.has_next %}
-                    <li class="page-item">
-                        <a class="page-link" href="{% url 'flowers_base:search_surplus' %}?page={{ page_obj.next_page_number }}&key={{ key }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    {% endif %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ paginator.num_pages }}&key={{ key }}" aria-label="Next">
-                            <span aria-hidden="true">尾页</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-           </div>
+                            <nav class="page-dji" aria-label="Page navigation example">
+                                <ul class="pagination">
+{#                                    判断页码是否大于一，大于一就会显示分页器#}
+                                    {% if paginator.num_pages > 1 %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="{% url 'flowers_base:search_surplus' %}?page=1&key={{ key }}" aria-label="Previous">
+                                                <span aria-hidden="true">首页</span>
+                                            </a>
+                                        </li>
+                                        {% if page_obj.has_previous %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="{% url 'flowers_base:search_surplus' %}?page={{ page_obj.previous_page_number }}&key={{ key }}" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        <li class="page-item active">
+                                            <a class="page-link" href="#">{{ current_page }}</a>
+                                        </li>
+                                        {% if page_obj.has_next %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="{% url 'flowers_base:search_surplus' %}?page={{ page_obj.next_page_number }}&key={{ key }}">{{ page_obj.next_page_number }}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if page_obj.has_next %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="{% url 'flowers_base:search_surplus' %}?page={{ page_obj.next_page_number }}&key={{ key }}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="{% url 'flowers_base:search_surplus' %}?page={{ paginator.num_pages }}&key={{ key }}" aria-label="Next">
+                                                <span aria-hidden="true">尾页</span>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>

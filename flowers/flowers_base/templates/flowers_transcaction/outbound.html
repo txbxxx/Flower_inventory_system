@@ -9,6 +9,9 @@
     <div>
     <form action="{% url 'flowers_transcaction:outbound' flower.flower_id %}" method="post">
         {% csrf_token %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+        {% endfor %}
         {{ form|crispy }}
         <button class="btn btn-light" name="submit">出库</button>
     </form>

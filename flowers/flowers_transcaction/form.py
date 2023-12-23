@@ -41,11 +41,14 @@ class OutBoundForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super(OutBoundForm, self).save(commit=False)
-        while True:
-            new_outbound_id = random.randint(10000, 99999)  # 生成一个随机的四位数作为class_id
-            if not outbound.objects.filter(outbound_id=new_outbound_id).exists():
-                instance.outbound_id = new_outbound_id
-                break
+        current_time = datetime.now()
+        formatted_time = current_time.strftime("%Y%m%d%H%M%S")
+        instance.outbound_id = formatted_time
+        # while True:
+        #     new_outbound_id = random.randint(10000, 99999)  # 生成一个随机的四位数作为class_id
+        #     if not outbound.objects.filter(outbound_id=new_outbound_id).exists():
+        #         instance.outbound_id = new_outbound_id
+        #         break
         if commit:
             instance.save()
         return instance

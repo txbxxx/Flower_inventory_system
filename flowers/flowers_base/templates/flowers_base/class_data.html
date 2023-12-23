@@ -20,6 +20,7 @@
                         <tr>
                             <th scope="col">编号</th>
                             <th scope="col">类别名</th>
+                            <th scope="col">操作</th>
                         </tr>
                     </thead>
             {# 使用for读取从视图文件传入的class_data数据内的数据  #}
@@ -31,6 +32,19 @@
                             </td>
                             <td >
                                 <a href="{% url 'flowers_base:edit_class' data.class_id %}">{{ data.class_name }}</a>
+                            </td>
+                            <td class="class_flower_data_list">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-light btn-sm">
+                                            <a class="inbount-btn" href="{% url 'flowers_base:class_flower' class_id=data.class_id %}">查看</a>
+                                        </button>
+                                        <button type="button" class="btn btn-light btn-sm delete_class_btn">
+                                            <a class="inbount-btn" href="{% url 'flowers_base:delete_class' data.class_id %}">删除</a>
+                                        </button>
+                                        <button type="button" class="btn btn-light btn-sm">
+                                            <a class="outbount-btn" href="{% url 'flowers_base:edit_class' data.class_id %}">修改</a>
+                                        </button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>

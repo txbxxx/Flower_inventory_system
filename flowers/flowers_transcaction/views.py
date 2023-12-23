@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect,reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .form import InBoundForm, OutBoundForm
 from .models import inbound,outbound
 from flowers_base.models import flower_data
-
+from django.contrib import messages
 
 # Create your views here.
 
@@ -42,9 +42,10 @@ def outbound_list(request, flower_id):
             flower.num -= num
             if flower.num < 0:
                 messages.error(request, "库存数量不足")
-            form.save()
-            flower.save()
-            return HttpResponseRedirect(reverse('flowers_base:flower_data'))
+            else:
+                form.save()
+                flower.save()
+                return HttpResponseRedirect(reverse('flowers_base:flower_data'))
     context = {'form': form, "flower": flower}
     return render(request, 'flowers_transcaction/outbound.html', context)
 
@@ -65,6 +66,26 @@ def admin_bond_list(request, admin_id):
     return render(request, 'flowers_transcaction/admin_oprate_list.html', context)
 
 
+#输出总的出库表
+def bond_list(request):
+    out = outbound.objects.order_by('outbound_date')
+    ino = inbound.objects.order_by('inbound_date')
+    # page_number = request.GET.get('page', 1) ## 页码
+    # paginator = Paginator(out, 10)
+    # page_obj = paginator.get_page(page_number)
+    context = {
+        # 'page_obj': page_obj,
+        # 'paginator': paginator,
+        # 'current_page': page_number,
+        'out':out,
+        'ino':ino,
+    }
+    return render(request, 'flowers_transcaction/bound_all_list.html', context)
+
+
+
+
+
 #删除出库信息后，花的数据返回
 def delete_inbound(request, inbound_id):
     inbound_data = inbound.objects.get(inbound_id=inbound_id)
@@ -75,10 +96,9 @@ def delete_inbound(request, inbound_id):
         flower.num -= inbound_data.inbound_num
         inbound_data.delete()
         flower.save()
+        return redirect('flowers_transcaction:admin_bond_list',inbound_data.admin.admin_id  )
     else:
-        return HttpResponse("花的数量少于此条数据的入库数量！！")
-    context = {'inbound_data':inbound_data,'admin_name':inbound_data.admin.admin_name}
-    return render(request, 'flowers_transcaction/admin_oprate_list.html',context)
+        messages.error(request, "不能删除！！，因为库存不足，请检查出库入库表单！！")
 
 
 #删除出库信息后，数据返回
@@ -86,12 +106,7 @@ def delete_outbound(request, outbound_id):
     # 获取flower对象，依靠传入的flower_id
     outbound_data = outbound.objects.get(outbound_id=outbound_id)
     flower = flower_data.objects.get(flower_id=outbound_data.flowers.flower_id)
-    #同上不过是相反的
-    if outbound_data.flowers.num < outbound_data.outbound_num:
-        flower.num += outbound_data.outbound_num
-        outbound_data.delete()
-        flower.save()
-    # else:
-    #     return HttpResponse("花的数量于此条数据的入库数量！！")
-    context = {'inbound_data': outbound_data, 'admin_name': outbound_data.admin.admin_name}
-    return render(request, 'flowers_transcaction/admin_oprate_list.html',context)
+    flower.num += outbound_data.outbound_num
+    outbound_data.delete()
+    flower.save()
+    return redirect('flowers_transcaction:admin_bond_list',outbound_data.admin.admin_id )

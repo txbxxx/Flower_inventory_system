@@ -156,7 +156,6 @@ def delete_flower(request, flower_id):
     flower_id = flower_data.objects.get(flower_id=flower_id)
     flower_id.delete()
     return redirect('flowers_base:flower_data')
-    # return render(request, 'flowers_base/delete_flowers.html')
 
 #删除花类别视图
 def delete_class(request, class_id):
@@ -189,7 +188,7 @@ def class_flower(request, class_id):
     return render(request, 'flowers_base/class_flower_list.html', context)
 
 
-#搜索视图用法
+#搜索视图用法（本来想做全部搜索的，也就是admin，class也加进去,先把视图搜索，后面数据导入到HTML构思半天没构思好，先放着）
 def search_flower(request):
     #获取值，这个值是input输入的内容，其中select是input输入框的name
     form = request.GET.get("select",None)
@@ -197,17 +196,35 @@ def search_flower(request):
     #Q是表示可以使用or and这些来搜索
     if form:
         if re.match(pattern, form):
-            modle = flower_data.objects.filter(
-                Q(flower_id=form)).order_by('-flower_id').all()
+            modle1 = flower_data.objects.filter(
+                Q(flower_id=form) | Q(classi=form))
+            modle2 = admin_data.objects.filter(
+                Q(admin_id=form)
+            )
+            modle3 = flower_class.objects.filter(
+                Q(class_id=form)
+            )
+            modle = list(modle1)+list(modle2)+list(modle3)
         else:
-            modle = flower_data.objects.filter(
+            modle1 = flower_data.objects.filter(
                 Q(flower_name__icontains=form) | Q(classi__class_name__icontains=form)).order_by('-flower_id').all()
+            modle2 = admin_data.objects.filter(
+                Q(admin_name__icontains=form)  | Q(telephone__icontains=form)
+            )
+            modle3 = flower_class.objects.filter(
+                Q(class_name__icontains=form)
+            )
+            modle = list(modle1) + list(modle2)+list(modle3)
+            print(modle)
     else:
         modle = flower_data.objects.all().order_by('-flower_id')
     # search = flower_data.objects.filter(Q(flower_name__icontains=form) | Q(flower_id__icontains=form) |Q(classi__class_name__icontains=form))
     page_number = request.GET.get('page', 1) ## 页码
     paginator = Paginator(modle, 10)
     page_obj = paginator.get_page(page_number)
+    # if isinstance(page_obj.object_list[0], flower_data):
+    #     n = 1;
+    # elif isinstance(page_obj.object_list[0],flower_class):
     context = {
         'page_obj': page_obj,
         'paginator': paginator,
@@ -216,21 +233,18 @@ def search_flower(request):
     }
     return render(request,'flowers_base/search.html',context)
 
+
+##这个是查询是否小于这个库存数
 def search_surplus(request):
     form = request.GET.get('search_surplus')
-    print(form)
     pattern = "^[0-9]+$"
     modle = flower_data.objects.all()
     if form and re.match(pattern, form):
             modle = flower_data.objects.filter(num__lt=form)
-    page_number = request.GET.get('page') ## 页码
+    page_number = request.GET.get('page', 1) ## 页码
     paginator = Paginator(modle, 10)
-    try:
-        page_obj = paginator.page(page_number)
-    except PageNotAnInteger:
-        page_obj = paginator.page(1)
-    except EmptyPage:
-        page_obj = paginator.page(paginator.num_pages)
+    page_obj = paginator.get_page(page_number)
+
     context = {
         'page_obj': page_obj,
         'paginator': paginator,

@@ -4,17 +4,13 @@
     <div class="flower_table">
         <div class="text-center mt-5 mb-5">
             <h3 class="text-center">
-                {% if admin_name %}
-                    {{ admin_name }}管理员的鲜花出库记录
-                {% else %}
-                    未添加管理员的鲜花出库记录
-                {% endif %}
+                鲜花出库记录
                 {% for message in messages %}
                     <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
                 {% endfor %}
             </h3>
         </div>
-        <table class="table  text-center table-hover" border="1">
+        <table class="table text-center table-hover" border="1">
                  <thead>
                     <tr>
                         <th scope="col">出库号</th>
@@ -52,14 +48,10 @@
     <div class="flower_table">
         <div class="text-center mt-5 mb-5">
             <h3 class="text-center">
-                {% if admin_name %}
-                    {{ admin_name }}管理员的鲜花入库记录
-                {% else %}
-                    未添加管理员的鲜花入库记录
-                {% endif %}
+                鲜花入库记录
             </h3>
         </div>
-        <table class="table  text-center table-hover" border="1">
+        <table class="table text-center table-hover" border="1">
                  <thead>
                     <tr>
                         <th scope="col">入库号</th>

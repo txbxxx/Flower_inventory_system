@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>base</title>
     {% load django_bootstrap5 %}
+    {% load custom_tags %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <link rel="stylesheet" href="{% static 'flower_base\css\index_nav.css' %}">
@@ -30,6 +31,9 @@
                     <a class="nav-link"  href="{% url 'flowers_base:flower_class' %}">鲜花类别数据</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'flowers_base:admin_data' %}">管理员数据</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'flowers_transcaction:bound_list' %}">出库入库数据</a>
                 </li>
             </ul>
             <div class="row mx-auto">
