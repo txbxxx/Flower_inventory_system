@@ -4,7 +4,8 @@ from django.contrib import messages
 from .models import flower_data, flower_class, admin_data
 from .form import FlowersForm, FlowerClassForm, adminForm, SearchForm
 import re
-from django.core.paginator import Paginator, EmptyPage
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import uuid
 
 # Create your views here.
 
@@ -57,10 +58,12 @@ def adminData(request):
 # 向数据库中添加flower的方法
 def add_flower(request):
     if request.method != 'POST':  # 如果不是POST请求就创建一个空表单，请求一般是get请求
-        form = FlowersForm()
+        form = FlowersForm(initial={'flower_id': str(uuid.uuid4())})
+        print(form)
     else:
         form = FlowersForm(data=request.POST)
         if form.is_valid():
+
             form.save()
             return redirect('flowers_base:flower_data')
     context = {'form': form}
@@ -198,7 +201,7 @@ def search_flower(request):
                 Q(flower_id=form)).order_by('-flower_id').all()
         else:
             modle = flower_data.objects.filter(
-                Q(flower_name__contains=form) | Q(classi__class_name__icontains=form)).order_by('-flower_id').all()
+                Q(flower_name__icontains=form) | Q(classi__class_name__icontains=form)).order_by('-flower_id').all()
     else:
         modle = flower_data.objects.all().order_by('-flower_id')
     # search = flower_data.objects.filter(Q(flower_name__icontains=form) | Q(flower_id__icontains=form) |Q(classi__class_name__icontains=form))
@@ -212,6 +215,28 @@ def search_flower(request):
         'key': form
     }
     return render(request,'flowers_base/search.html',context)
+
+def search_surplus(request):
+    form = request.GET.get('search_surplus')
+    print(form)
+    pattern = "^[0-9]+$"
+    modle = flower_data.objects.all()
+    if form and re.match(pattern, form):
+            modle = flower_data.objects.filter(num__lt=form)
+    page_number = request.GET.get('page') ## 页码
+    paginator = Paginator(modle, 10)
+    try:
+        page_obj = paginator.page(page_number)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+    context = {
+        'page_obj': page_obj,
+        'paginator': paginator,
+        'current_page': page_number,
+    }
+    return render(request,'flowers_base/search_surplus.html',context)
 
 
 

@@ -49,20 +49,15 @@ def outbound_list(request, flower_id):
 
 
 #对应管理员的出库表清单
-def admin_out_list(request, admin_id):
+def admin_bond_list(request, admin_id):
     out = outbound.objects.filter(admin_id=admin_id)
+    ino = inbound.objects.filter(admin_id=admin_id)
     admin_name = None   #首先将管理员的名字设置为None调用到html中使用if判断
+    ##如果inbount内有数据就执行
+    if ino.exists():
+        admin_name = ino[0].admin.admin_name  # 获取管理员的名字
     ##如果outbount内有数据就执行
     if out.exists():
         admin_name = out[0].admin.admin_name  # 获取管理员的名字
-    context = {'out': out, 'admin_name': admin_name}
-    return render(request, 'flowers_transcaction/admin_oprate_list.html', context)
-
-def admin_in_list(request, admin_id):
-    ino = inbound.objects.filter(admin_id=admin_id)
-    admin_name = None   #首先将管理员的名字设置为None调用到html中使用if判断
-    ##如果outbount内有数据就执行
-    if ino.exists():
-        admin_name = ino[0].admin.admin_name  # 获取管理员的名字
-    context = {'ino': out, 'admin_name': admin_name}
+    context = {'out': out, 'admin_name': admin_name,'ino':ino}
     return render(request, 'flowers_transcaction/admin_oprate_list.html', context)

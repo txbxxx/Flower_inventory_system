@@ -2,8 +2,9 @@
     color: black;
 }
 
-.nav-pills nav-item {
-    background-color: dodgerblue;
+/*导航栏*/
+.nav_daohan .nav-link,.nav-link:hover{
+     color: white;
 }
 
 /*所有a标签*/
@@ -16,5 +17,90 @@ a {
 .edit_flower_form{
     text-align: center;
 }
+
+/*搜索花数量的表单控件*/
+.search_surplus_form .form-control{
+    height: 40px;
+}
+
+
+
+/*=================================================================================================*/
+/*flowre_data.html*/
+/*出库入库按钮a标签名字*/
+.button_group_in_out .inbount-btn,.outbount-btn,.outbount-btn:hover{
+    color: white;
+}
+
+/*出库入库按钮背景色*/
+.button_group_in_out .btn{
+    background-color: #363333;
+}
+
+
+.add_flower_btn .btn{
+    background-color: #363333;
+    height: 30px;
+}
+
+
+
+.add_flower_btn .add_flowers_a,.add_flowers_a:hover{
+    color: white;
+}
+
+/*表单控件*/
+.search_surplus_form .form-control{
+    height: 10px;
+    width: 150px;
+}
+
+/*搜索花数量的搜索按钮*/
+.search_surplus_form .btn{
+    line-height: 1;
+    font-size: 10px;
+    width: 50px;
+}
+
+/*=============================================================================================*/
+
+/*search.html*/
+.search_flowers_button_group_in_out .btn{
+    background-color: #363333;
+}
+
+.search_flowers_button_group_in_out  .inbount-btn,.outbount-btn,.outbount-btn:hover{
+    color: white;
+}
+
+/*=======================================class_data.html=====================================================*/
+
+.add_class .add_class_a:hover{
+    color: white;
+}
+
+.add_class a{
+    color: white;
+}
+
+
+.add_class_btn .btn{
+    background-color: #363333;
+}
+
+
+/*=================================================admin_data.html============================================*/
+
+.add_admin a,.add_admin_a:hover{
+    color: white;
+}
+
+
+.add_admin_btn .btn{
+    background-color: #363333;
+}
+
+
+
 
 

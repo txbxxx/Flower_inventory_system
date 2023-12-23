@@ -46,7 +46,7 @@
                 {% if admin_name %}
                     {{ admin_name }}管理员的鲜花入库记录
                 {% else %}
-                    未添加管理员的鲜花出库记录
+                    未添加管理员的鲜花入库记录
                 {% endif %}
             </h3>
         </div>
@@ -77,7 +77,6 @@
             <li>没有鲜花数据</li>
         {%  endfor %}
         </table>
-{#        <div class="add_flowrs_for_class"><a href="{% url 'flowers_base:add_flower' %}">添加鲜花</a></div>#}
     </div>
 </div>
 {% endblock content %}

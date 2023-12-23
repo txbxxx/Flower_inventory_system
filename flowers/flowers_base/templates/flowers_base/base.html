@@ -1,5 +1,4 @@
 {#主模板#}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,29 +9,27 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <link rel="stylesheet" href="{% static 'flower_base\css\index_nav.css' %}">
-{#    <link rel="stylesheet" type="text/css" href="../css/bootstrap-table.min.css" />#}
-{#    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />#}
 </head>
 <body>
 {#导航栏设置#}
-<nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" style="background-color: #e3f2fd;">
+<nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" style="background-color:  #181717;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">鲜花库存管理系统</a>
+        <a class="navbar-brand" style="color: white" href="#">鲜花库存管理系统</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class=" nav nav nav-pills nav-fill">
+        <div class="collapse navbar-collapse nav_daohan" id="navbarNav">
+            <ul class=" nav nav-tabs">
                 {# 在主页中显示的几个选项，点击可以跳转到相应界面  #}
 {#                <li class="nav-item">#}
 {#                    <a class="nav-link" aria-current="page" href="{% url 'flowers_base:index' %}">flower base</a>#}
 {#                </li>#}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'flowers_base:flower_data' %}">Flowers Data</a> </li>
+                    <a class="nav-link" href="{% url 'flowers_base:flower_data' %}">鲜花数据</a> </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'flowers_base:flower_class' %}">Flowers Class</a></li>
+                    <a class="nav-link"  href="{% url 'flowers_base:flower_class' %}">鲜花类别数据</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'flowers_base:admin_data' %}">Admin Data</a>
+                    <a class="nav-link" href="{% url 'flowers_base:admin_data' %}">管理员数据</a>
                 </li>
             </ul>
             <div class="row mx-auto">

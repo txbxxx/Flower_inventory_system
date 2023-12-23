@@ -1,20 +1,27 @@
 {% extends 'flowers_base/base.html' %}
+{% load static %}
 {%  block content %}
     <div class="container">
         <div class="text-center mt-2 mb-2">
             <h3 class="text-center">鲜花库存数据表</h3>
         </div>
-        <div class="row">
-            <div class="col-12 d-flex justify-content-end mb-3">
-                <div class="add_flowers">
-                    <button class="btn btn-light btn-lg">
-                        <a href="{% url 'flowers_base:add_flower' %}">添加鲜花</a>
-                    </button>
+        <div class="row mx-auto search_surplus_start">
+            <div class="col-6 d-flex justify-content-start mb-1 search_surplus_form">
+                <form class="d-flex" role="search" action="{% url 'flowers_base:search_surplus' %}" method="get">
+                        <input class="form-control me-2 form-control-sm" aria-label="Search" type="text" name="search_surplus" placeholder="输入剩余数量">
+                    <button class="btn btn-outline-success btn-sm mx-2" type="submit" >搜索</button>
+                </form>
+            </div>
+                <div class="col-6 d-flex justify-content-end mb-1  add_flower_btn">
+                    <div class="add_flowers">
+                        <button class="btn btn-light btn-sm">
+                            <a class="add_flowers_a" href="{% url 'flowers_base:add_flower' %}">添加鲜花</a>
+                        </button>
                 </div>
             </div>
         </div>
         <div class="container">
-            <table class="table table-borderless text-center table-hover" border="1">
+            <table class="table text-center table-hover" border="1">
                      <thead>
                         <tr>
                             <th scope="col">编号</th>
@@ -26,7 +33,7 @@
                         </tr>
                     </thead>
             {% for data in  page_obj %}
-                    <tbody class="table-group-divider">
+                    <tbody>
                         <tr>
                             <td scope="row">{{ data.flower_id }}</td>
                             {# 由于我这里遍历的变量是data，所以就是  data.flower_id#}
@@ -38,7 +45,7 @@
                             </td>
                             <td>{{ data.num }}</td>
                             <td>{{ data.price }}</td>
-                            <td>
+                            <td class="button_group_in_out">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-light btn-sm" >
                                         <a class="inbount-btn" href="{% url 'flowers_transcaction:inbound' flower_id=data.flower_id %}">入库</a>

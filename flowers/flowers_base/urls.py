@@ -28,6 +28,7 @@ urlpatterns = [
     path('search/', views.search_flower, name="search_flower"), #查询功能
     path('delete_class/<int:class_id>/', views.delete_class, name="delete_class"), #删除花的类别
     path('edit_class/<int:class_id>/', views.edit_class, name="edit_class"),  #修改花的类别
-    path('edit_admin/<int:admin_id>/', views.edit_admin, name="edit_admin"),
-    path('delete_admin/<int:admin_id>/', views.delete_admin, name="delete_admin"),
+    path('edit_admin/<int:admin_id>/', views.edit_admin, name="edit_admin"),    #修改管理员的信息
+    path('delete_admin/<int:admin_id>/', views.delete_admin, name="delete_admin"),  #删除管理员信息
+    path('search_surplus/', views.search_surplus, name="search_surplus"),
 ]
