@@ -6,17 +6,20 @@
             <h3 class="text-center">鲜花库存数据表</h3>
         </div>
         <div class="row mx-auto search_surplus_start">
-            <div class="col-6 d-flex justify-content-start mb-1 search_surplus_form">
-                <form class="d-flex" role="search" action="{% url 'flowers_base:search_surplus' %}" method="get">
-                        <input class="form-control me-2 form-control-sm" aria-label="Search" type="text" name="search_surplus" placeholder="输入剩余数量">
-                    <button class="btn btn-outline-success btn-sm mx-2" type="submit" >搜索</button>
-                </form>
-            </div>
-                <div class="col-6 d-flex justify-content-end mb-1  add_flower_btn">
-                    <div class="add_flowers">
-                        <button class="btn btn-light btn-sm">
-                            <a class="add_flowers_a" href="{% url 'flowers_base:add_flower' %}">添加鲜花</a>
-                        </button>
+            <div class="col-6 d-flex justify-content-start mb-1 search_surplus_form ">
+
+                    <form class="d-flex" role="search" action="{% url 'flowers_base:search_surplus' %}" method="get">
+                        <div class="input-group">
+                            <input class="form-control  form-control-sm" aria-label="Search" type="text" name="search_surplus" placeholder="输入剩余数量">
+                            <button class="btn btn-outline-success btn-sm" type="submit" >搜索</button>
+                        </div>
+                    </form>
+                </div>
+            <div class="col-6 d-flex justify-content-end mb-1  add_flower_btn">
+                <div class="add_flowers">
+                    <button class="btn btn-light btn-sm">
+                        <a class="add_flowers_a" href="{% url 'flowers_base:add_flower' %}">添加鲜花</a>
+                    </button>
                 </div>
             </div>
         </div>

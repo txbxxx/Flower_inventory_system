@@ -22,7 +22,7 @@ def inbound_list(request, flower_id):
             num = form.cleaned_data['inbound_num']  # 获取表单中的数据，并进行后续的处理
             flower.num += num  #将花本身的个数加上入库的个数
             flower.save()   #保存花的数据
-            form.save()     #保存表单的数据
+            form.save_inbound()     #保存表单的数据
             return HttpResponseRedirect(reverse('flowers_base:flower_data'))
     context = {'form': form, "flower": flower}
     return render(request, 'flowers_transcaction/inbound.html', context)
@@ -40,6 +40,8 @@ def outbound_list(request, flower_id):
         if form.is_valid():
             num = form.cleaned_data['outbound_num']  # 获取表单中的数据，并进行后续的处理
             flower.num -= num
+            if flower.num < 0:
+                messages.error(request, "库存数量不足")
             form.save()
             flower.save()
             return HttpResponseRedirect(reverse('flowers_base:flower_data'))
@@ -61,3 +63,35 @@ def admin_bond_list(request, admin_id):
         admin_name = out[0].admin.admin_name  # 获取管理员的名字
     context = {'out': out, 'admin_name': admin_name,'ino':ino}
     return render(request, 'flowers_transcaction/admin_oprate_list.html', context)
+
+
+#删除出库信息后，花的数据返回
+def delete_inbound(request, inbound_id):
+    inbound_data = inbound.objects.get(inbound_id=inbound_id)
+    #获取flower对象依靠inbound_data的外键】】‘
+    flower = flower_data.objects.get(flower_id=inbound_data.flowers.flower_id)
+    #如果入库花的数量是大于小于或等于花现在的数量，那么就表示为正常
+    if inbound_data.flowers.num >= inbound_data.inbound_num:
+        flower.num -= inbound_data.inbound_num
+        inbound_data.delete()
+        flower.save()
+    else:
+        return HttpResponse("花的数量少于此条数据的入库数量！！")
+    context = {'inbound_data':inbound_data,'admin_name':inbound_data.admin.admin_name}
+    return render(request, 'flowers_transcaction/admin_oprate_list.html',context)
+
+
+#删除出库信息后，数据返回
+def delete_outbound(request, outbound_id):
+    # 获取flower对象，依靠传入的flower_id
+    outbound_data = outbound.objects.get(outbound_id=outbound_id)
+    flower = flower_data.objects.get(flower_id=outbound_data.flowers.flower_id)
+    #同上不过是相反的
+    if outbound_data.flowers.num < outbound_data.outbound_num:
+        flower.num += outbound_data.outbound_num
+        outbound_data.delete()
+        flower.save()
+    # else:
+    #     return HttpResponse("花的数量于此条数据的入库数量！！")
+    context = {'inbound_data': outbound_data, 'admin_name': outbound_data.admin.admin_name}
+    return render(request, 'flowers_transcaction/admin_oprate_list.html',context)

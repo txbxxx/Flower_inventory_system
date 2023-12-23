@@ -107,7 +107,7 @@ def edit_flower(request, flower_id):
         if fl == flower_id:
             if form.is_valid():
                 #检测用户是否修改了flower_name
-                if 'flower_name' not in request.POST:
+                if 'flower_id' in request.POST:
                     form.save()
                     return redirect('flowers_base:flower_data',)
         else:

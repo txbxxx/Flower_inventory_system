@@ -17,4 +17,6 @@ urlpatterns = [
     path('inbound/<int:flower_id>', views.inbound_list, name='inbound'),
     path('outbound/<int:flower_id>', views.outbound_list, name='outbound'),
     path('bound_list/<int:admin_id>',views.admin_bond_list, name='admin_bond_list'),
+    path('delete_inbound_data/<int:inbound_id>',views.delete_inbound, name='delete_inbound'),
+    path('delete_outbound_data/<int:outbound_id>',views.delete_outbound, name='delete_outbound'),
 ]

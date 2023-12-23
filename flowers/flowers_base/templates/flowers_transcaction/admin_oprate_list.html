@@ -19,6 +19,7 @@
                         <th scope="col">出库时间</th>
                         <th scope="col">操作员</th>
                         <th scope="col">花名</th>
+                        <th scope="col">操作</th>
                     </tr>
                 </thead>
         {% for data in  out %}
@@ -32,6 +33,11 @@
                         <td>{{ data.outbound_date }}</td>
                         <td>{{ data.admin_id }}</td>
                         <td>{{ data.flowers_id }}</td>
+                        <td>
+                            <button type="button" class="btn btn-light btn-sm">
+                                <a class="inbount-btn" href="{% url 'flowers_transcaction:delete_outbound' outbound_id=data.outbound_id%}">删除</a>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
         {% empty %}
@@ -58,6 +64,7 @@
                         <th scope="col">入库时间</th>
                         <th scope="col">操作员</th>
                         <th scope="col">花名</th>
+                        <th scope="col">操作</th>
                     </tr>
                 </thead>
         {% for data in  ino %}
@@ -71,6 +78,11 @@
                         <td>{{ data.inbound_date }}</td>
                         <td>{{ data.admin_id }}</td>
                         <td>{{ data.flowers_id }}</td>
+                        <td>
+                            <button type="button" class="btn btn-light btn-sm">
+                                <a class="inbount-btn" href="{% url 'flowers_transcaction:delete_inbound' inbound_id=data.inbound_id%}">删除</a>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
         {% empty %}
