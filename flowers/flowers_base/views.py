@@ -6,6 +6,7 @@ from .form import FlowersForm, FlowerClassForm, adminForm, SearchForm
 import re
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import uuid
+from flowers_transcaction.models import inbound,outbound
 
 # Create your views here.
 
@@ -197,7 +198,7 @@ def search_flower(request):
     if form:
         if re.match(pattern, form):
             modle1 = flower_data.objects.filter(
-                Q(flower_id=form) | Q(classi=form))
+                Q(flower_id=form) | Q(classi=form) | Q(price=form) | Q(num=form))
             modle2 = admin_data.objects.filter(
                 Q(admin_id=form)
             )
@@ -215,7 +216,6 @@ def search_flower(request):
                 Q(class_name__icontains=form)
             )
             modle = list(modle1) + list(modle2)+list(modle3)
-            print(modle)
     else:
         modle = flower_data.objects.all().order_by('-flower_id')
     # search = flower_data.objects.filter(Q(flower_name__icontains=form) | Q(flower_id__icontains=form) |Q(classi__class_name__icontains=form))

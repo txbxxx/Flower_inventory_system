@@ -4,7 +4,7 @@
     <div class="flower_table">
         <div class="text-center mt-5 mb-5">
             <h3 class="text-center">
-                鲜花出库记录
+                    鲜花出库记录
                 {% for message in messages %}
                     <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
                 {% endfor %}
@@ -40,7 +40,7 @@
                     </tr>
                 </tbody>
         {% empty %}
-            <li>没有鲜花数据</li>
+            <li>没有鲜花出库记录</li>
         {%  endfor %}
         </table>
 {#        <div class="add_flowrs_for_class"><a href="{% url 'flowers_base:add_flower' %}">添加鲜花</a></div>#}
@@ -81,7 +81,7 @@
                     </tr>
                 </tbody>
         {% empty %}
-            <li>没有鲜花数据</li>
+            <li>没有鲜花入库记录</li>
         {%  endfor %}
         </table>
     </div>
