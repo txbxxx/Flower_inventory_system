@@ -103,16 +103,16 @@ def edit_flower(request, flower_id):
     if request.method != 'POST':
         form = FlowersForm(instance=flower)
     else:
-        fl = int(request.POST.get('flower_id'))
+        # fl = int(request.POST.get('flower_id'))
         form = FlowersForm(instance=flower, data=request.POST)
-        if fl == flower_id:
-            if form.is_valid():
-                #检测用户是否修改了flower_name
-                if 'flower_id' in request.POST:
-                    form.save()
-                    return redirect('flowers_base:flower_data',)
-        else:
-            messages.error(request, "flower_id不能被修改")
+        # if fl == flower_id:
+        if form.is_valid():
+            #检测用户是否修改了flower_name
+            # if 'flower_id' in request.POST:
+            form.save()
+            return redirect('flowers_base:flower_data',)
+        # else:
+        #     messages.error(request, "flower_id不能被修改")
     context = {'form': form, "clas": clas, "flower": flower}
     return render(request, 'flowers_base/edit_flower.html', context)
 
@@ -124,14 +124,14 @@ def edit_class(request, class_id):
     if request.method != 'POST':
         form = FlowerClassForm(instance=class_i)
     else:
-        ci = int(request.POST.get('class_id'))
+        # ci = int(request.POST.get('class_id'))
         form = FlowerClassForm(instance=class_i, data=request.POST)
-        if ci == class_id: #检查是否修改了class_id
-            if form.is_valid():
-                form.save()
-                return redirect('flowers_base:flower_class')
-        else: ##如果修改了就报错
-            messages.error(request, "class_id不能被修改")
+        # if ci == class_id: #检查是否修改了class_id
+        if form.is_valid():
+            form.save()
+            return redirect('flowers_base:flower_class')
+        # else: ##如果修改了就报错
+        #     messages.error(request, "class_id不能被修改")
     context = {'form':form, "class_i": class_i}
     return render(request, 'flowers_base/edit_class.html', context)
 
@@ -142,11 +142,12 @@ def edit_admin(request, admin_id):
     if request.method != 'POST':
         form = adminForm(instance=admin)
     else:
-        admini = int(request.POST.get("admin_id"))
+        # admini = int(request.POST.get("admin_id"))
         form = adminForm(instance=admin, data=request.POST)
-        if admin_id != admini:  # 检查是否修改了admin_id
-            messages.error(request, "admin_id不能被修改")
-        else:
+        # if admin_id != admini:  # 检查是否修改了admin_id
+        #     messages.error(request, "admin_id不能被修改")
+        # else:
+        if form.is_valid():
             form.save()
             return redirect('flowers_base:admin_data')
     context = {'form':form, "admin": admin}

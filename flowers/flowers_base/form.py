@@ -20,11 +20,12 @@ class FlowersForm(forms.ModelForm):
         fields = ['flower_name','classi','num','price']
     def save(self, commit=True):
         instance = super(FlowersForm, self).save(commit=False)
-        while True:
-            new_flower_id = random.randint(10000, 99999)  # 生成一个随机的四位数作为class_id
-            if not flower_data.objects.filter(flower_id=new_flower_id).exists():
-                instance.flower_id = new_flower_id
-                break
+        if not instance.pk:
+            while True:
+                new_flower_id = random.randint(10000, 99999)  # 生成一个随机的四位数作为class_id
+                if not flower_data.objects.filter(flower_id=new_flower_id).exists():
+                    instance.flower_id = new_flower_id
+                    break
         if commit:
             instance.save()
         return instance
@@ -37,11 +38,12 @@ class FlowerClassForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super(FlowerClassForm, self).save(commit=False)
-        while True:
-            new_class_id = random.randint(10000, 99999)  # 生成一个随机的四位数作为class_id
-            if not flower_class.objects.filter(class_id=new_class_id).exists():
-                instance.class_id = new_class_id
-                break
+        if not instance.pk:
+            while True:
+                new_class_id = random.randint(10000, 99999)  # 生成一个随机的四位数作为class_id
+                if not flower_class.objects.filter(class_id=new_class_id).exists():
+                    instance.class_id = new_class_id
+                    break
         if commit:
             instance.save()
         return instance
@@ -53,11 +55,12 @@ class adminForm(forms.ModelForm):
         fields = ['admin_name','telephone']
     def save(self, commit=True):
         instance = super(adminForm, self).save(commit=False)
-        while True:
-            new_admin_id = random.randint(10000, 99999)  # 生成一个随机的四位数作为class_id
-            if not admin_data.objects.filter(admin_id=new_admin_id).exists():
-                instance.admin_id = new_admin_id
-                break
+        if not instance.pk:
+            while True:
+                new_admin_id = random.randint(10000, 99999)  # 生成一个随机的四位数作为class_id
+                if not admin_data.objects.filter(admin_id=new_admin_id).exists():
+                    instance.admin_id = new_admin_id
+                    break
         if commit:
             instance.save()
         return instance
